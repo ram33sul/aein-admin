@@ -1,0 +1,23 @@
+:root{
+  --gold-color: rgb(255, 215, 0);
+  --gold-color-dark: rgb(200, 160, 20);
+  --blue-color: rgb(82,134,254);
+  --blue-color-dark: rgb(85,133,253);
+  --silver-color-light: rgb(241,243,246);
+  --red-color: rgb(254,54,95);
+  --blue-color-light: rgb(0,225,194);
+  --orange-color: rgb(255,125,67);
+  --yellow-color: rgb(255,191,0);
+  --violet-color: rgb(101,8,150);
+  --green-color-dark: rgb(83, 145, 101);
+}
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.App {
+  height: 100vh;
+}

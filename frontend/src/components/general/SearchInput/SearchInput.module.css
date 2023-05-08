@@ -1,0 +1,16 @@
+.input {
+    background-color: var(--silver-color-light);
+    color: black;
+    transition: width 0.2s;
+    border: 0;
+    outline: 0;
+    padding: 10px 15px;
+    border-radius: 50px;
+    font-size: 15px;
+    user-select: none;
+    box-sizing: border-box;
+}
+
+.input:focus {
+    outline: 1px solid var(--blue-color);
+}

@@ -1,0 +1,13 @@
+.image {
+    cursor: pointer;
+    transition: all 0.2s;
+    z-index: 1;
+}
+
+.image:hover {
+    filter: brightness(0);
+}
+
+.image:active {
+    opacity: 0.2;
+}

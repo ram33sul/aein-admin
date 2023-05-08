@@ -1,0 +1,48 @@
+.container {
+    width: calc(50% - 10px);
+    min-width: fit-content;
+    box-sizing: border-box;
+    padding: 30px;
+    height: 200px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+    position: relative;
+}
+
+.heading {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.count {
+    font-weight: bold;
+    font-size: 40px;
+    margin-top: auto;
+}
+
+.sub-heading {
+    font-size: 17px;
+    opacity: 0.8;
+    margin-top: 10px;
+}
+
+.view {
+    width: fit-content;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.container:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.container:hover > .view {
+    opacity: 1;
+}

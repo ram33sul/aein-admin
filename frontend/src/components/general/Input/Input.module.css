@@ -1,0 +1,39 @@
+.container {
+    position: relative;
+}
+
+.input {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 15px;
+    outline: 0;
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+}
+
+.input:focus {
+    border: 1px solid var(--blue-color-dark);
+}
+
+.label {
+    width: fit-content;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    transition: all 0.3s;
+    background-color: white;
+    font-size: 15px;
+    z-index: -1;
+    padding: 0 5px;
+}
+
+.input:focus ~ .label,
+.input:valid ~ .label {
+    top: 0;
+    left: 15px;
+    transform: translateY(-50%);
+    z-index: 2;
+}
