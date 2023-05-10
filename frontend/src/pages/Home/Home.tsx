@@ -16,6 +16,7 @@ function Home(){
         'notifications',
         'settings'
     ]
+    
     return(
         <div className={styles.container}>
             <Navbar
@@ -28,7 +29,7 @@ function Home(){
                 <Routes>
                     {
                         pages.map((page) => {
-                            return  <Route path={page} element={ <PageContent page={page}/>} />
+                            return  <Route key={page} path={page} element={ <PageContent page={page}/>} />
                         })
                     }
                 </Routes>

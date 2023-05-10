@@ -5,6 +5,8 @@ import Icon from '../../components/general/Icon/Icon';
 import ButtonOne from '../../components/general/ButtonOne/Button';
 import axios from 'axios';
 import { InputEventType } from '../../types/other';
+import { useDispatch } from 'react-redux';
+import { adminLogin } from '../../redux/admin/adminActions';
 
 function Login() {
 
@@ -12,6 +14,7 @@ function Login() {
     const [ password, setPassword ] = useState('');
     const [ usernameError, setUsernameError ] = useState('');
     const [ passwordError, setPasswordError ] = useState('');
+    const dispatch = useDispatch();
 
     const handleSubmit = () => {
         if(username !== '' && password !== ''){
@@ -20,7 +23,16 @@ function Login() {
                 password
             }).then((response) => {
                 console.log(response);
+                dispatch(adminLogin(response.data));
             }).catch((error) => {
+                error?.response?.data?.forEach((element: {field: string, message: string}) => {
+                    if(element?.field === 'username'){
+                        setUsernameError(element.message)
+                    }
+                    if(element?.field === 'password'){
+                        setPasswordError(element.message)
+                    }
+                });
                 console.log(error);
             })
         }
@@ -45,7 +57,7 @@ function Login() {
     return (
         <div className={styles.container}>
             <div className={styles.logo}>
-                <Icon icon='aein' size='80px' color='black'/>
+                <Icon icon='aein' size='80px' color='gold'/>
             </div>
             <div className={styles.form}>
                 <div className={styles["form-headings-wrapper"]}>

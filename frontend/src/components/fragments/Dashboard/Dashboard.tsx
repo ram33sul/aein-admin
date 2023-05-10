@@ -2,6 +2,8 @@ import styles from './Dashboard.module.css'
 import CountedData from '../../general/CountedData/CountedData';
 import BarChart from '../../general/BarChart/BarChart';
 import PieChart from '../../general/PieChart/PieChart';
+import useApi from '../../../customHooks/api';
+import { useEffect } from 'react';
 function Dashboard(){
     const chartData: [string, number][] = [
         ['monday', 34],
@@ -40,27 +42,59 @@ function Dashboard(){
             count: 454
         }
     ]
+
+    interface Users {
+        totalUsers: number,
+        totalUsersToday: number
+    }
+    interface Posts {
+        totalPosts: number,
+        totalPostsToday: number
+    }
+    interface Messages {
+        onlineUsers: number,
+        messagedUsersToday: number,
+        totalMessages: number,
+        totalMessagesToday: number
+    }
+
+    const [ messages, messagesError, messagesLoading ] = useApi<Messages>({
+        url: 'messagesCount'
+    })
+    
+    const [ posts, postsError, postsLoading ] = useApi<Posts>({
+        url: '/postsCount'
+    })
+
+    const [ users, usersError, usersLoading ] = useApi<Users>({
+        url: '/usersCount'
+    })
+
     return (
         <div className={styles.container}>
             <div className={styles['left-part']}>
                 <div className={styles['left-part-1']}>
                     <CountedData
                         heading={'Total count of Users'}
-                        count={123434}
+                        count={users?.totalUsers ?? 0}
                         subHeading={'New users today'}
-                        subCount={234}
+                        subCount={users?.totalUsersToday ?? 0}
                         theme={'dark'}
                         width='100%'
+                        loading={usersLoading}
+                        error={usersError && usersError.name !== 'CanceledError' ? true : false}
                     />
                 </div>
                 <div className={styles['left-part-1']}>
                     <CountedData
-                        heading={'Count of Active Users'}
-                        count={9834}
-                        subHeading={'Total Active Users today'}
-                        subCount={234434}
+                        heading={'Count of Online Users'}
+                        count={messages?.onlineUsers ?? 0}
+                        subHeading={'Users used messaging'}
+                        subCount={messages?.messagedUsersToday ?? 0}
                         theme={'light'}
                         width='100%'
+                        loading={messagesLoading}
+                        error={messagesError && messagesError.name !== 'CanceledError' ? true : false}
                     />
                 </div>
                 <div className={styles['left-part-2']}>
@@ -69,10 +103,12 @@ function Dashboard(){
                 <div className={styles['left-part-1']}>
                     <CountedData
                         heading={'Total post count'}
-                        count={34245}
+                        count={posts?.totalPosts ?? 0}
                         subHeading={'Posts made today'}
-                        subCount={3434}
+                        subCount={posts?.totalPostsToday ?? 0}
                         width='100%'
+                        loading={postsLoading}
+                        error={postsError && postsError.name !== 'CanceledError' ? true : false}
                         />
                 </div>
                 <div className={styles['left-part-1']}>
@@ -82,15 +118,18 @@ function Dashboard(){
                         subHeading={'Interactions on posts today'}
                         subCount={3434}
                         width='100%'
+                        loading={false}
                         />
                 </div>  
                 <div className={styles['left-part-1']}>
                     <CountedData
                         heading={'Total Messages Count'}
-                        count={342453}
+                        count={messages?.totalMessages ?? 0}
                         subHeading={'Messages count today'}
-                        subCount={3434}
+                        subCount={messages?.totalMessagesToday ?? 0}
                         width='100%'
+                        loading={messagesLoading}
+                        error={messagesError && messagesError.name !== 'CanceledError' ? true : false}
                         />
                 </div>
                 <div className={styles['left-part-1']}>
@@ -100,6 +139,7 @@ function Dashboard(){
                         subHeading={'Reports count today'}
                         subCount={3434}
                         width='100%'
+                        loading={false}
                         />
                 </div>
             </div>
@@ -116,6 +156,7 @@ function Dashboard(){
                             subCount={'humour'}
                             theme='dark'
                             width='100%'
+                            loading={false}
                             />
                     </div>
                     <div className={styles['right-part-1']}>
@@ -125,6 +166,7 @@ function Dashboard(){
                             subHeading={'used less than 5 times'}
                             subCount={3434}
                             width='100%'
+                            loading={false}
                             />
                     </div>
                 </div>

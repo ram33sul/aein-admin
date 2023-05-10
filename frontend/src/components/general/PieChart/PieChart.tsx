@@ -42,7 +42,7 @@ function PieChart({data, heading, height}: props){
                     data.map(elem => {
                         const { color, name } = elem;
                         return (
-                            <div className={styles["bullet-text-wrapper"]}>
+                            <div className={styles["bullet-text-wrapper"]} key={name}>
                                 <div className={styles["bullet"]} style={{backgroundColor: color}}>
                                 </div>
                                 <div className={styles["text"]}>

@@ -5,6 +5,7 @@ type props = {
     chartData: [string, number][],
     heading: string
 }
+
 function BarChart({ chartData, heading }: props){
 
     const largestValue = useMemo(() => {
@@ -24,7 +25,7 @@ function BarChart({ chartData, heading }: props){
                 {
                     chartData.map((data) => {
                         const height = `${(data[1] / largestValue) * 100}%`
-                        return <Chart data={data} height={height} width={wrapperWidth}/>
+                        return <Chart key={data[0]} data={data} height={height} width={wrapperWidth}/>
                     })
                 }
             </div>
@@ -37,6 +38,7 @@ type chartProps = {
     height: string;
     width: number
 }
+
 function Chart({data, height, width}: chartProps){
 
     return (

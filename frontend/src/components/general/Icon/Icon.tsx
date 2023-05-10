@@ -3,7 +3,7 @@ import styles from './Icon.module.css';
 type props = {
     icon: string,
     active?: boolean,
-    color: 'white' | 'black',
+    color: 'white' | 'black' | 'gold',
     size?: string,
     onClick?: () => (void | object);
 }

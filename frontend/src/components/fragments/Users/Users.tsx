@@ -10,11 +10,11 @@ function Users(){
         ['friday', 2],
         ['saturday', 34],
         ['sunday', 25],
-        ['wednesday', 45],
-        ['thursday', 32],
-        ['friday', 2],
-        ['saturday', 34],
-        ['sunday', 25]
+        ['wednesday2', 45],
+        ['thursday2', 32],
+        ['friday2', 2],
+        ['saturday2', 34],
+        ['sunday2', 25]
     ]
     return(
         <div className={styles.container}>
@@ -26,6 +26,7 @@ function Users(){
                         subHeading=''
                         subCount={3}
                         width='100%'
+                        loading={false}
                         />
                 </div>
                 <div className={styles['count-data']}>
@@ -35,6 +36,7 @@ function Users(){
                         subHeading=''
                         subCount={3}
                         width='100%'
+                        loading={false}
                         />
                 </div>
                 <div className={styles['count-data']}>
@@ -44,6 +46,7 @@ function Users(){
                         subHeading=''
                         subCount={3}
                         width='100%'
+                        loading={false}
                         />
                 </div>
             </div>
