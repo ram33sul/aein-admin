@@ -1,10 +1,9 @@
 import express, { Express } from 'express';
 import cookieParser from 'cookie-parser';
-import dotenv from 'dotenv'
+import './config/env.js'
 import database from './config/database.js';
 import accountRouter from './routes/account.js'
 
-dotenv.config();
 database();
 
 const app: Express = express();

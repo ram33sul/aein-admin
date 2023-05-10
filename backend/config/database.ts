@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const URI = 'mongodb://localhost:27017/aein-admin';
+const URI: string = process.env.MONGOOSE_URI as string;
 
 mongoose.set('sanitizeFilter', true);
 

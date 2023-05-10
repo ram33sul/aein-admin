@@ -10,19 +10,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { signToken, verifyToken } from '../authentication/jwt.js';
 export const postLoginService = ({ username, password }) => {
     return new Promise((resolve, reject) => {
-        if (!(username === 'admin' && password === 'admin')) {
-            return reject(false);
+        if (username !== 'admin') {
+            return reject([{ field: 'username', message: 'Username is invalid' }]);
+        }
+        if (password !== 'admin') {
+            return reject([{ field: 'password', message: 'Password is incorrect' }]);
         }
         const token = signToken(username);
         return resolve(token);
     });
 };
-export const verifyAdmin = (token) => {
+export const verifyAdminService = (token) => {
     return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
-        const isValid = yield verifyToken(token);
-        if (!isValid) {
-            return reject(false);
-        }
-        resolve(isValid);
+        verifyToken(token)
+            .then((response) => {
+            resolve(response);
+        })
+            .catch(() => {
+            reject(false);
+        });
     }));
 };

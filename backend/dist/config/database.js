@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const URI = 'mongodb://localhost:27017/aein-admin';
+const URI = process.env.MONGOOSE_URI;
 mongoose.set('sanitizeFilter', true);
 const database = () => {
     mongoose.connect(URI).then(() => {

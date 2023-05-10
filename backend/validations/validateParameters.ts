@@ -1,4 +1,4 @@
-import valuePresence from "./isNotEmpty.js"
+import valuePresence from "./valuePresence.js"
 import { validateName } from "./validateValues.js";
 import { keyable } from "../types/type.js";
 
