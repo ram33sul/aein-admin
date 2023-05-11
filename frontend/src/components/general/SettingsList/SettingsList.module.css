@@ -1,0 +1,20 @@
+.container {
+    border: 1px solid silver;
+    border-radius: 20px;
+    position: relative;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.heading {
+    position: absolute;
+    top: 0;
+    left: 0;;
+    background-color: white;
+    padding: 0 5px;
+    transform: translateX(50%) translateY(-50%);
+    width: fit-content;
+    font-weight: bold;
+}

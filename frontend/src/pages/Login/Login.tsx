@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Input from '../../components/general/Input/Input';
 import styles from './Login.module.css';
 import Icon from '../../components/general/Icon/Icon';
-import ButtonOne from '../../components/general/ButtonOne/Button';
+import ButtonOne from '../../components/general/ButtonOne/ButtonOne';
 import axios from 'axios';
 import { InputEventType } from '../../types/other';
 import { useDispatch } from 'react-redux';

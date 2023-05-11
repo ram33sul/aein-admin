@@ -14,7 +14,7 @@ function Navbar({active, icons, index}: props){
     const [ activeMarkerPos, setActiveMarkerPos ] = useState(-15);
 
     useEffect(() => {
-        setActiveMarkerPos((index * 60) -15)
+        setActiveMarkerPos((index * 60) - 15)
     },[index])
 
     return(
@@ -28,9 +28,11 @@ function Navbar({active, icons, index}: props){
                         return <Icon key={icon} icon={icon} color='white' active={active === icon} onClick={() => navigate(`/${icon}`)} />
                     })
                 }
+                {
+                    index < 0 ? '' :
                 <div className={styles["active-marker"]} style={{top: `${activeMarkerPos}px`}}>
                     
-                </div>
+                </div>}
             </div>
         </div>
     )

@@ -12,8 +12,11 @@ export interface InputProps {
 }
 
 export interface ButtonProps {
-    text?: string,
-    width: string,
-    height: string,
-    onClick: () => unknown;
+    text?: string;
+    width?: string;
+    height?: string;
+    padding?: string;
+    type?: string;
+    loading?: boolean;
+    onClick?: () => unknown;
 }

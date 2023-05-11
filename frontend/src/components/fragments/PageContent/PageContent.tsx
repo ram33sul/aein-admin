@@ -7,7 +7,9 @@ interface ComponentsInterface {
 
 const Components: ComponentsInterface = {
     dashboard: lazy(() => import('../Dashboard/Dashboard')),
-    users: lazy(() => import('../Users/Users'))
+    users: lazy(() => import('../Users/Users')),
+    settings: lazy(() => import('../Settings/Settings')),
+    addNewMood: lazy(() => import('../AddNewMood/AddNewMood'))
 }
 
 function PageContent({page}: {page: string}) {

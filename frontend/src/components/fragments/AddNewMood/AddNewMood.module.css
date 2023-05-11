@@ -1,0 +1,14 @@
+.container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+}
+
+.heading {
+    font-size: 20px;
+    padding-bottom: 10px;
+}

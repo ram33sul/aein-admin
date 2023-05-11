@@ -3,7 +3,7 @@ import CountedData from '../../general/CountedData/CountedData';
 import BarChart from '../../general/BarChart/BarChart';
 import PieChart from '../../general/PieChart/PieChart';
 import useApi from '../../../customHooks/api';
-import { useEffect } from 'react';
+
 function Dashboard(){
     const chartData: [string, number][] = [
         ['monday', 34],
@@ -59,7 +59,7 @@ function Dashboard(){
     }
 
     const [ messages, messagesError, messagesLoading ] = useApi<Messages>({
-        url: 'messagesCount'
+        url: '/messagesCount'
     })
     
     const [ posts, postsError, postsLoading ] = useApi<Posts>({
@@ -82,7 +82,7 @@ function Dashboard(){
                         theme={'dark'}
                         width='100%'
                         loading={usersLoading}
-                        error={usersError && usersError.name !== 'CanceledError' ? true : false}
+                        error={usersError ? true : false}
                     />
                 </div>
                 <div className={styles['left-part-1']}>
@@ -94,7 +94,7 @@ function Dashboard(){
                         theme={'light'}
                         width='100%'
                         loading={messagesLoading}
-                        error={messagesError && messagesError.name !== 'CanceledError' ? true : false}
+                        error={messagesError ? true : false}
                     />
                 </div>
                 <div className={styles['left-part-2']}>
@@ -108,7 +108,7 @@ function Dashboard(){
                         subCount={posts?.totalPostsToday ?? 0}
                         width='100%'
                         loading={postsLoading}
-                        error={postsError && postsError.name !== 'CanceledError' ? true : false}
+                        error={postsError ? true : false}
                         />
                 </div>
                 <div className={styles['left-part-1']}>
@@ -129,7 +129,7 @@ function Dashboard(){
                         subCount={messages?.totalMessagesToday ?? 0}
                         width='100%'
                         loading={messagesLoading}
-                        error={messagesError && messagesError.name !== 'CanceledError' ? true : false}
+                        error={messagesError ? true : false}
                         />
                 </div>
                 <div className={styles['left-part-1']}>
