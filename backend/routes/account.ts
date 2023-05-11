@@ -1,7 +1,7 @@
 import express, { Router } from 'express';
 import { doLogin, doLogout, verifyAdmin } from '../controllers/accountController.js';
 import auth from '../authentication/auth.js';
-import { messagesCountDetails, postsCountDetails, usersCountDetails } from '../controllers/fetchController.js';
+import { addMood, connectToMessages, messagesCountDetails, postsCountDetails, usersCountDetails } from '../controllers/fetchController.js';
 
 const router: Router = express.Router();
 
@@ -17,6 +17,11 @@ router.get('/postsCount', postsCountDetails);
 
 router.get('/usersCount', usersCountDetails);
 
+router.use(connectToMessages);
+
 router.get('/messagesCount', messagesCountDetails);
+
+router.post('/addMood', addMood);
+
 
 export default router;
