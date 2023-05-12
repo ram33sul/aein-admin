@@ -11,11 +11,12 @@ type props = {
     theme?: 'light' | 'dark';
     width?: string;
     loading: boolean;
-    error?: boolean
+    error?: boolean;
+    height?: string;
 }
-function CountedData({heading, count, subHeading, subCount, theme = 'light', width, loading , error = false}: props){
-    return (
-        <div className={styles.container} style={theme === 'light' ? {color: 'black', backgroundColor: 'var(--silver-color-light)', width} : {color: 'white', backgroundColor: 'var(--blue-color-dark)', width}}>
+function CountedData({heading, count, subHeading, subCount, theme = 'light', width, loading , error = false, height = ''}: props){
+    return ( 
+        <div className={styles.container} style={theme === 'light' ? {color: 'black', backgroundColor: 'var(--silver-color-light)', width, height} : {color: 'white', backgroundColor: 'var(--blue-color-dark)', width, height}}>
             {
                 loading ?
                 <div className={styles.loading}>

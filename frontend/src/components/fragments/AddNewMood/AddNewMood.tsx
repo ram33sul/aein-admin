@@ -5,6 +5,7 @@ import Input from '../../general/Input/Input';
 import styles from './AddNewMood.module.css';
 import { ChangeEvent, useEffect, useState } from 'react';
 import useApi from '../../../customHooks/api';
+import useAlert from '../../../customHooks/alert';
 
 function AddNewMood(){
 
@@ -16,6 +17,8 @@ function AddNewMood(){
     const [ nameError, setNameError ] = useState<string>('');
     const [ colorError, setColorError ] = useState<string>('');
 
+    const { AlertComponent, alert } = useAlert();
+    
     const [ submitResponse, submitError, submitLoading, submitShouldFetch ] = useApi({
         url:'/addMood',
         options: {
@@ -45,22 +48,40 @@ function AddNewMood(){
     }
 
     useEffect(() => {
-
-        if(submitError && Array.isArray(submitError.response?.data)){
-            console.log(submitError.response?.data);
-            
-            submitError.response?.data?.forEach((error) => {
-                if(error?.field === 'name'){
-                    setNameError(error.message)
-                } else if (error?.field === 'color'){
-                    setColorError(error.message)
-                }
-            })
+        if(submitError){
+            if(Array.isArray(submitError.response?.data)){
+                submitError.response?.data?.forEach((error) => {
+                    if(error?.field === 'name'){
+                        setNameError(error.message)
+                    } else if (error?.field === 'color'){
+                        setColorError(error.message)
+                    }
+                })
+            } else {
+                alert({
+                    backgroundColor: 'red',
+                    message: "Some error occured!"
+                })
+            }
         }
     }, [submitError])
 
+    useEffect(() => {
+        if(submitResponse){
+            setName('');
+            setColor('');
+            alert({
+                backgroundColor: 'green',
+                message: 'Mood is successfully added'
+            })
+        }
+    },[submitResponse])
+
     return (
         <div className={styles.container}>
+            {
+                AlertComponent
+            }
             <div className={styles.heading}>
                 Add new <strong>Mood</strong>
             </div>

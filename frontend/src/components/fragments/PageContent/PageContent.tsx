@@ -1,3 +1,4 @@
+import Loading from '../../general/Loading/Loading';
 import styles from './PageContent.module.css';
 import React,{ lazy, Suspense} from 'react';
 
@@ -9,7 +10,8 @@ const Components: ComponentsInterface = {
     dashboard: lazy(() => import('../Dashboard/Dashboard')),
     users: lazy(() => import('../Users/Users')),
     settings: lazy(() => import('../Settings/Settings')),
-    addNewMood: lazy(() => import('../AddNewMood/AddNewMood'))
+    addNewMood: lazy(() => import('../AddNewMood/AddNewMood')),
+    moods: lazy(() => import('../Moods/Moods'))
 }
 
 function PageContent({page}: {page: string}) {
@@ -17,7 +19,7 @@ function PageContent({page}: {page: string}) {
     return (
         <div className={styles.container}>
             {
-                <Suspense fallback = {<div> loading </div>}>
+                <Suspense fallback = {<Loading color='black'/>}>
                     {Component ? <Component /> : ""}
                 </Suspense>
             }

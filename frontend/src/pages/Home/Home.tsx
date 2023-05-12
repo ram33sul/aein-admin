@@ -13,7 +13,7 @@ function Home(){
         ['dashboard',[]],
         ['users',[]],
         ['posts',[]],
-        ['messages',[]],
+        ['messages',['moods']],
         ['support',[]],
         ['notifications',[]],
         ['settings',['addNewMood']],

@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { adminLogin, adminLogout } from './redux/admin/adminActions';
 import { StateValue } from './interfaces';
+import Loading from './components/general/Loading/Loading';
 function App() {
 
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ function App() {
   return (
     <div className="App">
       {
-        loading ? 'loading' :
+        loading ? <Loading color='black'/> :
       <Routes>
         <Route path='/login' element={ adminData ? <Navigate to='/'/> : <Login /> } />
         <Route path='/' element={ <Navigate to='/dashboard' />} />

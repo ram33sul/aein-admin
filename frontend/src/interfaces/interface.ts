@@ -19,4 +19,5 @@ export interface ButtonProps {
     type?: string;
     loading?: boolean;
     onClick?: () => unknown;
+    borderRadius?: string;
 }
