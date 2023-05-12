@@ -4,7 +4,6 @@ import Ws from 'ws';
 import { Request } from "express";
 
 const USER_SERVICE = process.env.USER_SERVICE;
-const GATEWAY_SERVICE = process.env.GATEWAY_SERVICE;
 const POST_SERVICE = process.env.POST_SERVICE
 const MESSAGE_SERVICE = process.env.MESSAGE_SERVICE;
 const TOKEN_NAME = process.env.TOKEN_NAME as string;
@@ -37,40 +36,45 @@ export const connectToMessages: controllerType = (req, res, next) => {
     next();
 }
 
-export const messagesCountDetails: controllerType = (req, res) => {
 
-    let responseSent = false
-    const messageServer = (req as ModifiedRequest).messagesServer;
-
-    
-    messageServer.on('open', () => {
-        messageServer.send(JSON.stringify({
-            type: 'messagesCountDetails',
-            from: 'admin'
-        }));
-    });
-    messageServer.on('message', (message: Ws.Data) => {
-        const { messageData, type } = JSON.parse(message.toString());
+export const messagesEvent = (event: string): controllerType => {
+    return (req, res) => {
+        let responseSent = false
+        const messageServer = (req as ModifiedRequest).messagesServer;
         
-        if(type === 'messagesCountDetails'){
+        messageServer.on('open', () => {
+            messageServer.send(JSON.stringify({
+                type: event,
+                from: 'admin'
+            }));
+        });
+        messageServer.on('message', (message: Ws.Data) => {
+            const { messageData, type, error } = JSON.parse(message.toString());
+            
+            if(type === event){
+                if(!responseSent){
+                    responseSent = true;
+                    if(error){
+                        return res.status(400).send(error)
+                    } else {    
+                        return res.status(200).json(messageData).end();
+                    }
+                }
+            }    
+        })
+        messageServer.on('close', (code: number, reason: string) => {
             if(!responseSent){
                 responseSent = true;
-                res.status(200).json(messageData).end();
+                return res.status(400).send("WS closed unexpectedly!")
             }
-        }    
-    })
-    messageServer.on('close', (code: number, reason: string) => {
-        if(!responseSent){
-            responseSent = true;
-            res.status(400).send("WS closed unexpectedly!")
-        }
-    });
-    messageServer.on('error', (error: Error) => {
-        if(!responseSent){
-            responseSent = true;
-            res.status(400).send("error at WS connection!")
-        }
-    });
+        });
+        messageServer.on('error', (error: Error) => {
+            if(!responseSent){
+                responseSent = true;
+                return res.status(400).send("error at WS connection!")
+            }
+        });
+    }
 }
 
 export const addMood: controllerType = (req, res) => {
@@ -128,4 +132,3 @@ export const addMood: controllerType = (req, res) => {
         }
     });
 }
-
