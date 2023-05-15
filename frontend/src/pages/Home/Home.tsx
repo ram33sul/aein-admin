@@ -11,9 +11,9 @@ function Home(){
     const route = location.pathname.split('/')[1];
     const pagesAndSubPages: [string,string[]][] = [
         ['dashboard',[]],
-        ['users',[]],
-        ['posts',[]],
-        ['messages',['moods']],
+        ['users',['usersData', 'userDetails']],
+        ['posts',['postsData']],
+        ['messages',['moods','moodsData', 'moodDetails']],
         ['support',[]],
         ['notifications',[]],
         ['settings',['addNewMood']],

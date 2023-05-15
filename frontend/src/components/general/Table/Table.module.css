@@ -1,0 +1,41 @@
+.table {
+    border: 1px solid silver;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: white;
+}
+
+.tr {
+    display: flex;
+    gap: 5px;
+    width: 100%;
+    padding: 10px 0;
+    transition: background-color 0.2s;
+}
+
+.tr:not(:first-child){
+    cursor: pointer;
+}
+
+.tr:hover {
+    background-color: var(--silver-color-light);
+}
+.tr:not(:last-child){
+    border-bottom: 1px solid var(--silver-color-light);
+}
+
+.tr:first-child {
+    background-color: var(--silver-color-light);
+}
+
+.th {
+    font-weight: bold;
+}
+
+.th, .tb {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+

@@ -19,7 +19,7 @@ function Settings(){
                     text='More Details'
                     width='fit-content'
                     height='fit-content'
-                    onClick={() => navigate('/moods')}
+                    onClick={() => navigate('/messages/moods')}
                     />
             </SettingsList>
         </div>

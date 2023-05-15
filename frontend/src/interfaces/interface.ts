@@ -9,6 +9,7 @@ export interface InputProps {
     type?: string;
     label?: string;
     error?: string;
+    readonly?: boolean;
 }
 
 export interface ButtonProps {
@@ -20,4 +21,13 @@ export interface ButtonProps {
     loading?: boolean;
     onClick?: () => unknown;
     borderRadius?: string;
+    color?: string;
+}
+
+export interface Mood {
+     _id: string, 
+    name: string, 
+    color: string,
+    count: number,
+    status: boolean
 }

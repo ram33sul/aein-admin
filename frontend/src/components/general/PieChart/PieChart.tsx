@@ -7,9 +7,10 @@ type props = {
         count: number
     }[];
     heading: string,
-    height: string
+    height: string,
+    onClick?: () => void
 }
-function PieChart({data, heading, height}: props){
+function PieChart({data, heading, height, onClick}: props){
 
     const sumValue = data.reduce((acc, curr) => {
         return curr.count + acc;
@@ -30,7 +31,7 @@ function PieChart({data, heading, height}: props){
     const backgroundImage = `conic-gradient(${pieData()})`
     
     return (
-        <div className={styles.container} style={{height}}>
+        <div className={styles.container} style={{height}} onClick={onClick}>
             <div className={styles.heading}>
                 {heading}
             </div>

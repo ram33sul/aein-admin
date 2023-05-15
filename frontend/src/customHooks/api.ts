@@ -11,7 +11,7 @@ type useApiOutput<T> = [
     T | null,
     AxiosError | null,
     boolean,
-    Dispatch<SetStateAction<boolean>>,
+    () => void,
     (() => void) | undefined
 ]
 
@@ -23,11 +23,15 @@ function useApi<T>({url, options = { method: 'GET'}, fetch = true}: useApiProps)
     const [ cancel, setCancel ] = useState<CancelTokenSource | null>(null);
     const [ shouldFetch, setShouldFetch ] = useState<boolean>(fetch);
 
+    const doFetch = () => {
+        setShouldFetch(true);
+        setLoading(true)
+    }
+
     useEffect(() => {
         const source = axios.CancelToken.source();
         setCancel(source);
         if(shouldFetch){
-            setLoading(true);
             axios(url,{
                 ...options,
                 cancelToken: source.token
@@ -39,6 +43,8 @@ function useApi<T>({url, options = { method: 'GET'}, fetch = true}: useApiProps)
                     setError(error)
                     setLoading(false)
                 }
+            }).finally(() => {
+                setShouldFetch(fetch);
             })
         }
         
@@ -47,7 +53,7 @@ function useApi<T>({url, options = { method: 'GET'}, fetch = true}: useApiProps)
         }
     },[shouldFetch])
 
-    return [ response, error, loading, setShouldFetch, cancel?.cancel ]
+    return [ response, error, loading, doFetch, cancel?.cancel ]
 }
 
 export default useApi;

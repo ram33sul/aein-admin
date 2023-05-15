@@ -13,10 +13,11 @@ type props = {
     loading: boolean;
     error?: boolean;
     height?: string;
+    onClick?: () => void;
 }
-function CountedData({heading, count, subHeading, subCount, theme = 'light', width, loading , error = false, height = ''}: props){
+function CountedData({heading, count, subHeading, subCount, theme = 'light', width, loading , error = false, height = '', onClick}: props){
     return ( 
-        <div className={styles.container} style={theme === 'light' ? {color: 'black', backgroundColor: 'var(--silver-color-light)', width, height} : {color: 'white', backgroundColor: 'var(--blue-color-dark)', width, height}}>
+        <div onClick={onClick} className={styles.container} style={theme === 'light' ? {color: 'black', backgroundColor: 'var(--silver-color-light)', width, height} : {color: 'white', backgroundColor: 'var(--blue-color-dark)', width, height}}>
             {
                 loading ?
                 <div className={styles.loading}>

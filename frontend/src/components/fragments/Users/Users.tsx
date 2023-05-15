@@ -1,7 +1,26 @@
 import styles from './Users.module.css';
 import CountedData from '../../general/CountedData/CountedData';
 import BarChart from '../../general/BarChart/BarChart';
+import useApi from '../../../customHooks/api';
+import ButtonOne from '../../general/ButtonOne/ButtonOne';
+import { useNavigate } from 'react-router-dom';
+
+interface Messages {
+    onlineUsers: number,
+    messagedUsersToday: number,
+    totalMessages: number,
+    totalMessagesToday: number
+}
+
+interface Users {
+    totalUsers: number,
+    totalUsersToday: number
+}
+
 function Users(){
+
+    const navigate = useNavigate();
+
     const chartData: [string, number][] = [
         ['monday', 34],
         ['tuesday', 78],
@@ -16,37 +35,47 @@ function Users(){
         ['saturday2', 34],
         ['sunday2', 25]
     ]
+
+    const [ users, usersError, usersLoading ] = useApi<Users>({
+        url: '/usersCount'
+    })
+
+    const [ messages, messagesError, messagesLoading ] = useApi<Messages>({
+        url: '/messagesCount'
+    })
+
     return(
         <div className={styles.container}>
             <div className={styles['section-1']}>
                 <div className={styles['count-data']}>
                     <CountedData
-                        heading='dfafddfafdfda dsaf'
-                        count={0}
-                        subHeading=''
-                        subCount={3}
+                        heading='Total number of users'
+                        count={users?.totalUsers ?? 0}
+                        subHeading='New users today'
+                        subCount={users?.totalUsersToday ?? 0}
                         width='100%'
-                        loading={false}
+                        loading={usersLoading}
+                        error={usersError ? true : false}
                         />
                 </div>
                 <div className={styles['count-data']}>
                     <CountedData
-                        heading='adsf adsf fd'
-                        count={0}
-                        subHeading=''
-                        subCount={3}
+                        heading='Count of online users'
+                        count={messages?.onlineUsers ?? 0}
+                        subHeading='users who used messaging'
+                        subCount={messages?.messagedUsersToday ?? 0}
                         width='100%'
-                        loading={false}
+                        loading={messagesLoading}
+                        error={messagesError ? true : false}
                         />
                 </div>
                 <div className={styles['count-data']}>
-                    <CountedData
-                        heading='asdf dfs'
-                        count={0}
-                        subHeading=''
-                        subCount={3}
+                    <ButtonOne
+                        text='View users data'
+                        onClick={() => navigate('/users/usersData')}
                         width='100%'
-                        loading={false}
+                        height='100%'
+                        borderRadius='20px'
                         />
                 </div>
             </div>

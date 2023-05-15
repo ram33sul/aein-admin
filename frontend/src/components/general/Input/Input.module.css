@@ -32,7 +32,8 @@
 }
 
 .input:focus ~ .label,
-.input:valid ~ .label {
+.input:valid ~ .label,
+.input:read-only ~ .label {
     top: 0;
     left: 15px;
     transform: translateY(-50%);

@@ -3,10 +3,11 @@ import { useMemo } from 'react'
 
 type props = {
     chartData: [string, number][],
-    heading: string
+    heading: string,
+    onClick?: () => void
 }
 
-function BarChart({ chartData, heading }: props){
+function BarChart({ chartData, heading, onClick }: props){
 
     const largestValue = useMemo(() => {
         return chartData.reduce((acc, curr) => {
@@ -17,7 +18,7 @@ function BarChart({ chartData, heading }: props){
     const wrapperWidth = 100 / chartData.length;
     
     return (
-        <div className={styles.container}>
+        <div className={styles.container} onClick={onClick}>
             <div className={styles.heading}>
                 {heading}
             </div>
@@ -49,9 +50,16 @@ function Chart({data, height, width}: chartProps){
                 </div>
             </div>
             <div className={styles["title"]}>
-                {
-                    data[0]
-                }
+                <div className={styles["title-name"]}>
+                    {
+                        data[0]
+                    }
+                </div>
+                <div className={styles["title-count"]}>
+                    {
+                        data[1]
+                    }
+                </div>
             </div>
         </div>
     )

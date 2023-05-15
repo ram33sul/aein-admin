@@ -4,6 +4,23 @@ import BarChart from '../../general/BarChart/BarChart';
 import PieChart from '../../general/PieChart/PieChart';
 import useApi from '../../../customHooks/api';
 
+interface Users {
+    totalUsers: number,
+    totalUsersToday: number
+}
+
+interface Posts {
+    totalPosts: number,
+    totalPostsToday: number
+}
+
+interface Messages {
+    onlineUsers: number,
+    messagedUsersToday: number,
+    totalMessages: number,
+    totalMessagesToday: number
+}
+
 function Dashboard(){
     const chartData: [string, number][] = [
         ['monday', 34],
@@ -42,21 +59,6 @@ function Dashboard(){
             count: 454
         }
     ]
-
-    interface Users {
-        totalUsers: number,
-        totalUsersToday: number
-    }
-    interface Posts {
-        totalPosts: number,
-        totalPostsToday: number
-    }
-    interface Messages {
-        onlineUsers: number,
-        messagedUsersToday: number,
-        totalMessages: number,
-        totalMessagesToday: number
-    }
 
     const [ messages, messagesError, messagesLoading ] = useApi<Messages>({
         url: '/messagesCount'

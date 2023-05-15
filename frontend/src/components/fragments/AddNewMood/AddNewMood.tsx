@@ -32,18 +32,16 @@ function AddNewMood(){
     })
 
     const handleSubmit: () => void = () => {
-        submitShouldFetch(true);
+        submitShouldFetch();
     }
 
     const handleNameInput = (e: ChangeEvent<HTMLInputElement>) => {
         setNameError('');
-        submitShouldFetch(false);
         setName(e.target.value);
     }
 
     const handleColorInput = (e: ChangeEvent<HTMLInputElement>) => {
         setColorError('');
-        submitShouldFetch(false);
         setColor(e.target.value);
     }
 
@@ -89,7 +87,7 @@ function AddNewMood(){
             <Input error={colorError} width='100%' label='Color' value={color} onChange={handleColorInput} />
             <Container width='100%' gap='10px' height='40px' margin='10px 0'>
                 <ButtonOne text='ADD'  width='50%' onClick={handleSubmit} loading={submitLoading}/>
-                <ButtonOne text='CANCEL' type='reject' width='50%' onClick={() => navigate('/settings')} />
+                <ButtonOne text='CANCEL' type='reject' width='50%' onClick={() => navigate(-1)} />
             </Container>
         </div>
     )

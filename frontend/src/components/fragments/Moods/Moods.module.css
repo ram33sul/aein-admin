@@ -3,6 +3,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    max-height: 100vh;
 }
 
 .pie-chart {
@@ -10,21 +11,41 @@
 }
 
 .section-right {
-    display: flex;
     flex: 1;
+    display: flex;
+    flex-direction: column;
     gap: 20px;
-    flex-wrap: wrap;
+}
+
+.section-right-1 {
+    display: flex;
+    width: 100%;
+    height: 50%;
+    gap: 20px;
 }
 
 .total-count-component {
-    height: 50%;
+    height: 100%;
     flex: 1;
 }
 
 .button-wrapper {
-    height: 50%;
+    height: 100%;
     width: 40%;
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+
+.moods-list {
+    height: 50%;
+    width: 100%;
+    padding: 20px;
+    background-color: var(--silver-color-light);
+    border-radius: 20px;
+    overflow-y: scroll;
+}
+
+.moods-list::-webkit-scrollbar{
+    display: none;
 }

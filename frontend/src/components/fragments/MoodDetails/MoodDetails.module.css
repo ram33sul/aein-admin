@@ -1,0 +1,21 @@
+.container {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.data-container {
+    width: 500px;
+    max-width: 95vw;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.buttons-container {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    height: 50px;
+}
