@@ -11,9 +11,24 @@ const TOKEN_NAME = process.env.TOKEN_NAME as string;
 export const postsCountDetails: controllerType = (req, res) => {
     axios.get(`${POST_SERVICE}/postsCount?token=${req.cookies[TOKEN_NAME]}`).then((response) => {
         res.status(200).json({totalPosts: response.data[0].value, totalPostsToday: response.data[1].value});
-    }).catch((error) => {
-        console.log(error);
+    }).catch((error) => {        
         res.status(400).send("Can't fetch postsCountDetails!")
+    })
+}
+
+export const postsInteractionsCount: controllerType = (req, res) => {
+    axios.get(`${POST_SERVICE}/postsInteractionsCount?token=${req.cookies[TOKEN_NAME]}`).then((response) => {
+        res.status(200).json(response.data)
+    }).catch(error => {
+        res.status(400).send("Can't fetch postsInteractionsCount!")
+    })
+}
+
+export const postsData: controllerType = (req, res) => {
+    axios.get(`${POST_SERVICE}/postsData?token=${req.cookies[TOKEN_NAME]}`).then((response) => {
+        res.status(200).json(response.data)
+    }).catch(error => {
+        res.status(400).send("Can't fetch postsData!")
     })
 }
 
@@ -23,6 +38,24 @@ export const usersCountDetails: controllerType = (req, res) => {
     }).catch((error) => {
         console.log(error);
         res.status(400).send("Can't fetch usersCountDetails!")
+    })
+}
+
+export const usersData: controllerType = (req, res) => {
+    axios.get(`${USER_SERVICE}/usersData?token=${req.cookies[TOKEN_NAME]}`).then((response) => {
+        res.status(200).json(response.data)
+    }).catch((error) => {
+        console.log(error);
+        res.status(400).send("Can't fetch usersData!")
+    })
+}
+
+export const userDetails: controllerType = (req, res) => {
+    axios.get(`${USER_SERVICE}/userDetails?token=${req.cookies[TOKEN_NAME]}&id=${req.query.id}`).then((response) => {
+        res.status(200).json(response.data)
+    }).catch((error) => {
+        console.log(error);
+        res.status(400).send("Can't fetch usersData!")
     })
 }
 
@@ -43,18 +76,23 @@ export const messagesEvent = (event: string): controllerType => {
         const messageServer = (req as ModifiedRequest).messagesServer;
         
         messageServer.on('open', () => {
+            
             messageServer.send(JSON.stringify({
                 type: event,
+                messageData: {
+                    ...req.query,
+                    ...req.body
+                },
                 from: 'admin'
             }));
         });
         messageServer.on('message', (message: Ws.Data) => {
             const { messageData, type, error } = JSON.parse(message.toString());
-            
+
             if(type === event){
                 if(!responseSent){
                     responseSent = true;
-                    if(error){
+                    if(error){                        
                         return res.status(400).send(error)
                     } else {    
                         return res.status(200).json(messageData).end();

@@ -8,8 +8,21 @@ export const postsCountDetails = (req, res) => {
     axios.get(`${POST_SERVICE}/postsCount?token=${req.cookies[TOKEN_NAME]}`).then((response) => {
         res.status(200).json({ totalPosts: response.data[0].value, totalPostsToday: response.data[1].value });
     }).catch((error) => {
-        console.log(error);
         res.status(400).send("Can't fetch postsCountDetails!");
+    });
+};
+export const postsInteractionsCount = (req, res) => {
+    axios.get(`${POST_SERVICE}/postsInteractionsCount?token=${req.cookies[TOKEN_NAME]}`).then((response) => {
+        res.status(200).json(response.data);
+    }).catch(error => {
+        res.status(400).send("Can't fetch postsInteractionsCount!");
+    });
+};
+export const postsData = (req, res) => {
+    axios.get(`${POST_SERVICE}/postsData?token=${req.cookies[TOKEN_NAME]}`).then((response) => {
+        res.status(200).json(response.data);
+    }).catch(error => {
+        res.status(400).send("Can't fetch postsData!");
     });
 };
 export const usersCountDetails = (req, res) => {
@@ -18,6 +31,22 @@ export const usersCountDetails = (req, res) => {
     }).catch((error) => {
         console.log(error);
         res.status(400).send("Can't fetch usersCountDetails!");
+    });
+};
+export const usersData = (req, res) => {
+    axios.get(`${USER_SERVICE}/usersData?token=${req.cookies[TOKEN_NAME]}`).then((response) => {
+        res.status(200).json(response.data);
+    }).catch((error) => {
+        console.log(error);
+        res.status(400).send("Can't fetch usersData!");
+    });
+};
+export const userDetails = (req, res) => {
+    axios.get(`${USER_SERVICE}/userDetails?token=${req.cookies[TOKEN_NAME]}&id=${req.query.id}`).then((response) => {
+        res.status(200).json(response.data);
+    }).catch((error) => {
+        console.log(error);
+        res.status(400).send("Can't fetch usersData!");
     });
 };
 export const connectToMessages = (req, res, next) => {
@@ -32,6 +61,7 @@ export const messagesEvent = (event) => {
         messageServer.on('open', () => {
             messageServer.send(JSON.stringify({
                 type: event,
+                messageData: Object.assign(Object.assign({}, req.query), req.body),
                 from: 'admin'
             }));
         });
