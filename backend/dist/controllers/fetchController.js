@@ -25,6 +25,27 @@ export const postsData = (req, res) => {
         res.status(400).send("Can't fetch postsData!");
     });
 };
+export const postDetails = (req, res) => {
+    axios.get(`${POST_SERVICE}/postDetails?token=${req.cookies[TOKEN_NAME]}&id=${req.query.id}`).then((response) => {
+        res.status(200).json(response.data);
+    }).catch(error => {
+        res.status(400).send("Can't fetch postsData!");
+    });
+};
+export const postBlock = (req, res) => {
+    axios.get(`${POST_SERVICE}/postBlock?token=${req.cookies[TOKEN_NAME]}&id=${req.query.id}`).then((response) => {
+        res.status(200).json(response.data);
+    }).catch(error => {
+        res.status(400).send("Can't fetch postsData!");
+    });
+};
+export const postUnblock = (req, res) => {
+    axios.get(`${POST_SERVICE}/postUnblock?token=${req.cookies[TOKEN_NAME]}&id=${req.query.id}`).then((response) => {
+        res.status(200).json(response.data);
+    }).catch(error => {
+        res.status(400).send("Can't fetch postsData!");
+    });
+};
 export const usersCountDetails = (req, res) => {
     axios.get(`${USER_SERVICE}/totalUsersCount?token=${req.cookies[TOKEN_NAME]}`).then((response) => {
         res.status(200).json({ totalUsers: response.data[0].value, totalUsersToday: response.data[1].value });
@@ -43,6 +64,22 @@ export const usersData = (req, res) => {
 };
 export const userDetails = (req, res) => {
     axios.get(`${USER_SERVICE}/userDetails?token=${req.cookies[TOKEN_NAME]}&id=${req.query.id}`).then((response) => {
+        res.status(200).json(response.data);
+    }).catch((error) => {
+        console.log(error);
+        res.status(400).send("Can't fetch usersData!");
+    });
+};
+export const blockUser = (req, res) => {
+    axios.get(`${USER_SERVICE}/blockUserAdmin?token=${req.cookies[TOKEN_NAME]}&id=${req.query.id}`).then((response) => {
+        res.status(200).json(response.data);
+    }).catch((error) => {
+        console.log(error);
+        res.status(400).send("Can't fetch usersData!");
+    });
+};
+export const unblockUser = (req, res) => {
+    axios.get(`${USER_SERVICE}/unblockUserAdmin?token=${req.cookies[TOKEN_NAME]}&id=${req.query.id}`).then((response) => {
         res.status(200).json(response.data);
     }).catch((error) => {
         console.log(error);
