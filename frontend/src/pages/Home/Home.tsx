@@ -12,7 +12,7 @@ function Home(){
     const pagesAndSubPages: [string,string[]][] = [
         ['dashboard',[]],
         ['users',['usersData', 'userDetails']],
-        ['posts',['postsData']],
+        ['posts',['postsData', 'postDetails']],
         ['messages',['moods','moodsData', 'moodDetails']],
         ['support',[]],
         ['notifications',[]],

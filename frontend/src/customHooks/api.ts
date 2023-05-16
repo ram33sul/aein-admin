@@ -1,4 +1,4 @@
-import { useState, useEffect, SetStateAction, Dispatch } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError, CancelTokenSource} from 'axios';
 
 interface useApiProps {
@@ -22,11 +22,13 @@ function useApi<T>({url, options = { method: 'GET'}, fetch = true}: useApiProps)
     const [ loading, setLoading ] = useState<boolean>(fetch);
     const [ cancel, setCancel ] = useState<CancelTokenSource | null>(null);
     const [ shouldFetch, setShouldFetch ] = useState<boolean>(fetch);
+    const [ fetchAgain, setFetchAgain ] = useState<boolean>(false)
 
-    const doFetch = () => {
+    const doFetch = useCallback(() => {
         setShouldFetch(true);
-        setLoading(true)
-    }
+        setLoading(true);
+        setFetchAgain(prev => !prev);
+    },[])
 
     useEffect(() => {
         const source = axios.CancelToken.source();
@@ -43,15 +45,14 @@ function useApi<T>({url, options = { method: 'GET'}, fetch = true}: useApiProps)
                     setError(error)
                     setLoading(false)
                 }
-            }).finally(() => {
-                setShouldFetch(fetch);
             })
         }
         
         return () => {
             source.cancel("API Request was cancelled!")
         }
-    },[shouldFetch])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[shouldFetch, fetchAgain])
 
     return [ response, error, loading, doFetch, cancel?.cancel ]
 }

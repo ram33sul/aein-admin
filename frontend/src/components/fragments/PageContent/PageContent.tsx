@@ -18,7 +18,8 @@ const Components: ComponentsInterface = {
     posts: lazy(() => import('../Posts/Posts')),
     postsData: lazy(() => import('../PostsData/PostsData')),
     usersData: lazy(() =>  import('../UsersData/UsersData')),
-    userDetails: lazy(() => import('../UserDetails/UserDetails'))
+    userDetails: lazy(() => import('../UserDetails/UserDetails')),
+    postDetails: lazy(() => import('../PostDetails/PostDetails'))
 }
 
 function PageContent({page}: {page: string}) {

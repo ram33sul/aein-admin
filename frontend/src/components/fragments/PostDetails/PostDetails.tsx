@@ -1,47 +1,49 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import styles from './PostDetails.module.css';
+import { useEffect } from 'react';
 import useApi from '../../../customHooks/api';
-import styles from './UserDetails.module.css';
+import useAlert from '../../../customHooks/alert';
+import Loading from '../../general/Loading/Loading';
+import ErrorMessage from '../../general/ErrorMessage/ErrorMessage';
 import ButtonOne from '../../general/ButtonOne/ButtonOne';
 import ButtonTwo from '../../general/ButtonTwo/ButtonTwo';
-import Loading from '../../general/Loading/Loading';
-import { useEffect } from 'react';
-import useAlert from '../../../customHooks/alert';
-import ErrorMessage from '../../general/ErrorMessage/ErrorMessage';
 
-interface User {
+interface Post {
     _id: string;
-    name: string;
-    username: string;
-    email: string;
-    mobile: number;
-    createdAt: Date;
-    followers: string[];
-    following: string[];
-    profilePicUrl: string;
+    userId: string;
+    withUserId: string;
+    postedAt: Date;
     status: boolean;
+    messages: {}[];
+    likes: string[];
+    dislikes: string[];
+    commentsCount: number;
+    repliesCount: number;
+    sharesCount: number;
 }
-function UserDetails() {
+function PostDetails(){
 
-    const navigate = useNavigate();
+
+    const navigate = useNavigate()
+    const [ searchParams ] = useSearchParams();
+    const id = searchParams.get("id");
+
     const { alert, AlertComponent } = useAlert();
 
-    const [ searchParams ] = useSearchParams();
-    const id = searchParams.get('id')
-
-    const [ user, userError, userLoading, fetchUser ] = useApi<User>({
-        url: `/userDetails?id=${id}`
+    const [ post, postError, postLoading, fetchPost ] = useApi<Post>({
+        url: `/postDetails?id=${id}`,
     })
 
-    const [ block, blockError, blockLoading, doBlock ] = useApi<User>({
-        url: `/blockUser?id=${id}`,
+    const [ block, blockError, blockLoading, doBlock ] = useApi<Post>({
+        url: `/postBlock?id=${id}`,
         options: {
-            method: 'GET'
+            method: "GET"
         },
         fetch: false
     })
 
-    const [ unblock, unblockError, unblockLoading, doUnblock ] = useApi<User>({
-        url: `/unblockUser?id=${id}`,
+    const [ unblock, unblockError, unblockLoading, doUnblock ] = useApi<Post>({
+        url: `/postUnblock?id=${id}`,
         options: {
             method: "GET"
         },
@@ -58,10 +60,10 @@ function UserDetails() {
 
     useEffect(() => {
         if(block){
-            fetchUser();
+            fetchPost();
             alert({
                 backgroundColor: 'green',
-                message: "User blocked successfully"
+                message: "Post blocked successfully"
             })
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -69,10 +71,10 @@ function UserDetails() {
 
     useEffect(() => {
         if(unblock){
-            fetchUser();
+            fetchPost();
             alert({
                 backgroundColor: 'green',
-                message: "User unblocked successfully"
+                message: "Post unblocked successfully"
             })
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -82,7 +84,7 @@ function UserDetails() {
         if(blockError){
             alert({
                 backgroundColor: "red",
-                message: "Error occured while blocking user"
+                message: "Error occured while blocking post"
             })
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -92,74 +94,59 @@ function UserDetails() {
         if(unblockError){
             alert({
                 backgroundColor: "red",
-                message: "Error occured while unblocking user"
+                message: "Error occured while unblocking post"
             })
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[unblockError])
-
+    
     return (
         <div className={styles.container}>
             {
                 AlertComponent
             }
             {
-                userLoading ? <Loading color='black'/> :
-                userError ? <ErrorMessage text='Error occured while fetching user data' /> :
+                postLoading ? <Loading color='black'/> :
+                postError ? <ErrorMessage text='Error occured while fetching post details' /> :
             <div className={styles.wrapper}>
-                <div className={styles["image-container"]}>
-                    {
-                        user?.profilePicUrl ?
-                        <img src={user?.profilePicUrl} alt='none' className={styles.image}/> :
-                        "No profile pic"
-                    }
-                </div>
                 <div className={styles["contents"]}>
                     <div className={styles["field"]}>
-                        id:
+                        Post Id:
                     </div>
                     <div className={styles["value"]}>
-                        {user?._id}
+                        {post?._id}
                     </div>
                 </div>
                 <div className={styles["contents"]}>
                     <div className={styles["field"]}>
-                        Name:
+                        user Id:
                     </div>
                     <div className={styles["value"]}>
-                        {user?.name}
+                        {post?.userId}
                     </div>
                 </div>
                 <div className={styles["contents"]}>
                     <div className={styles["field"]}>
-                        Username:
+                        with user Id:
                     </div>
                     <div className={styles["value"]}>
-                        {user?.username}
+                        {post?.withUserId}
                     </div>
                 </div>
                 <div className={styles["contents"]}>
                     <div className={styles["field"]}>
-                        Email:
+                        Messages count:
                     </div>
                     <div className={styles["value"]}>
-                        {user?.email}
+                        {post?.messages.length}
                     </div>
                 </div>
                 <div className={styles["contents"]}>
                     <div className={styles["field"]}>
-                        Mobile:
+                        Posted at:
                     </div>
                     <div className={styles["value"]}>
-                        {user?.mobile}
-                    </div>
-                </div>
-                <div className={styles["contents"]}>
-                    <div className={styles["field"]}>
-                        Created at:
-                    </div>
-                    <div className={styles["value"]}>
-                        {new Date(user?.createdAt ?? 0).toLocaleString()}
+                        {new Date(post?.postedAt ?? 0).toLocaleString()}
                     </div>
                 </div>
                 <div className={styles["contents"]}>
@@ -168,7 +155,7 @@ function UserDetails() {
                     </div>
                     <div className={styles["value"]}>
                         {
-                            user?.status ?
+                            post?.status ?
                             <span style={{color: 'green'}}>
                                 Active
                             </span> :
@@ -180,18 +167,42 @@ function UserDetails() {
                 </div>
                 <div className={styles["contents"]}>
                     <div className={styles["field"]}>
-                        Followers:
+                        Likes count:
                     </div>
                     <div className={styles["value"]}>
-                        {user?.followers.length}
+                        {post?.likes.length}
                     </div>
                 </div>
                 <div className={styles["contents"]}>
                     <div className={styles["field"]}>
-                        Following:
+                        Dislikes count:
                     </div>
                     <div className={styles["value"]}>
-                        {user?.following.length}
+                        {post?.dislikes.length}
+                    </div>
+                </div>
+                <div className={styles["contents"]}>
+                    <div className={styles["field"]}>
+                        Comments count:
+                    </div>
+                    <div className={styles["value"]}>
+                        {post?.commentsCount}
+                    </div>
+                </div>
+                <div className={styles["contents"]}>
+                    <div className={styles["field"]}>
+                        Replies count:
+                    </div>
+                    <div className={styles["value"]}>
+                        {post?.repliesCount}
+                    </div>
+                </div>
+                <div className={styles["contents"]}>
+                    <div className={styles["field"]}>
+                        Shares count:
+                    </div>
+                    <div className={styles["value"]}>
+                        {post?.sharesCount}
                     </div>
                 </div>
                 <div className={styles["buttons-container"]}>
@@ -201,7 +212,7 @@ function UserDetails() {
                         width='50%'
                     />
                     {
-                        user?.status ?
+                        post?.status ?
                         <ButtonTwo
                             text='BLOCK'
                             onClick={handleBlock}
@@ -222,4 +233,4 @@ function UserDetails() {
     )
 }
 
-export default UserDetails;
+export default PostDetails;

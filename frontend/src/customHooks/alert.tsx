@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import Alert, { Props } from "../components/general/Alert/Alert";
 
 function useAlert(){
@@ -10,7 +10,7 @@ function useAlert(){
     })
     const [ timeoutId, setTimeoutId ] = useState<number | undefined >();
     
-    const alert = (props: Props) => {
+    const alert = useCallback((props: Props) => {
 
         clearTimeout(timeoutId)
         setAlertProps(props)
@@ -19,7 +19,7 @@ function useAlert(){
             setIsVisible(false);
         }, 2000)
         setTimeoutId(timeout);
-    }
+    },[timeoutId])
 
 
     const AlertComponent = isVisible ? <Alert {...alertProps} /> : null;
