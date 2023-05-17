@@ -42,29 +42,35 @@ function Posts(){
 
     return (
         <div className={styles.container}>
-            <div className={styles["left-section"]}>
-                <CountedData
-                    loading={postsCountLoading}
-                    heading='Total number of posts'
-                    subHeading='Total number of posts today'
-                    count={postsCount?.totalPosts ?? 0}
-                    subCount={postsCount?.totalPostsToday ?? 0}
-                    error={postsCountError ? true : false}
-                    width='100%'
+            <div className={styles["left-part"]}>
+                <div className={styles["left-top-part"]}>
+                    <CountedData
+                        loading={postsCountLoading}
+                        heading='Total number of posts'
+                        subHeading='Total number of posts today'
+                        count={postsCount?.totalPosts ?? 0}
+                        subCount={postsCount?.totalPostsToday ?? 0}
+                        error={postsCountError ? true : false}
+                        width='100%'
+                        onClick={() => navigate('/posts/postsData')}
+                    />
+                </div>
+                <div className={styles["left-bottom-part"]}>
+                    <ButtonOne
+                        text='View posts data'
+                        onClick={() => navigate('/posts/postsData')}
+                        height='100%'
+                        borderRadius='20px'
+                    />
+                </div>
+            </div>
+            <div className={styles["right-part"]}>
+                <BarChart 
+                    heading='Posts interactions'
+                    chartData={chartData}
                     onClick={() => navigate('/posts/postsData')}
-                />
-                <ButtonOne
-                    text='View posts data'
-                    onClick={() => navigate('/posts/postsData')}
-                    height='50%'
-                    borderRadius='20px'
                 />
             </div>
-            <BarChart 
-                heading='Posts interactions'
-                chartData={chartData}
-                onClick={() => navigate('/posts/postsData')}
-            />
         </div>
     )
 }

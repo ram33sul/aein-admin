@@ -4,9 +4,36 @@
     gap: 20px;
 }
 
-.left-section {
-    width: 40%;
+.left-part {
+    width: 50%;
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+
+.left-top-part {
+    height: 50%;
+}
+
+.left-bottom-part {
+    height: 50%;
+}
+
+.right-part {
+    width: 50%;
+}
+
+@media screen and (max-width: 650px) {
+    .container {
+        padding: 10px;
+        flex-direction: column;
+    }
+
+    .left-part, .right-part {
+        width: 100%;
+    }
+
+    .left-bottom-part {
+        height: 200px;
+    }
 }

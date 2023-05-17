@@ -43,16 +43,16 @@ function Moods() {
 
     return (
         <div className={styles.container}>
-            <div className={styles["pie-chart"]}>
+            <div className={styles["left-part"]}>
                 <PieChart onClick={() => navigate('/messages/moodsData')} heading='Mood usage comparison' height='100%' data={moods ?? []} />
             </div>
-            <div className={styles["section-right"]}>
-                <div className={styles["section-right-1"]}>
-                    <div className={styles["button-wrapper"]}>
+            <div className={styles["right-part"]}>
+                <div className={styles["right-top-part"]}>
+                    <div className={styles["right-top-left-part"]}>
                         <ButtonOne text='More details' width='100%' height='50%' type='reject' borderRadius='20px' onClick={() => navigate('/messages/moodsData')} />
                         <ButtonOne text='Add new mood' width='100%' height='50%' borderRadius='20px' onClick={() => navigate('/settings/addNewMood')}/>
                     </div>
-                    <div className={styles["total-count-component"]}>
+                    <div className={styles["right-top-right-part"]}>
                         <CountedData
                             heading='Total count of mood usage'
                             count={totalCount}
@@ -66,7 +66,7 @@ function Moods() {
                             />
                     </div>
                 </div>
-                <div className={styles["moods-list"]}>
+                <div className={styles["right-bottom-part"]}>
                     <Table headings={["name", "color", "count", "status"]} datas={tableData} />
                 </div>
             </div>

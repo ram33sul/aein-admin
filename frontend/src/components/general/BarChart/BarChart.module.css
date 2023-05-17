@@ -43,6 +43,20 @@
     width: 100%;
     text-align: center;
     overflow: hidden;
+    font-size: 15px;
+}
+
+.title-count {
+    width: 100%;
+    text-align: left;
+    white-space:pre-wrap;
+    word-wrap: break-word;
+}
+
+.title-name {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    text-align: left;
 }
 
 .chart-color{
@@ -80,5 +94,17 @@
     }
     100% {
         height: 100%;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .title {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .title {
+        font-size: 10px;
     }
 }

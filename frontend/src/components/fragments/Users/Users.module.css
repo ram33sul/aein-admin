@@ -16,4 +16,11 @@
 .count-data {
     flex: 1;
     min-width: fit-content;
+    min-height: 100px;
+}
+
+@media screen and (max-width: 650px) {
+    .container {
+        padding: 10px;
+    }
 }

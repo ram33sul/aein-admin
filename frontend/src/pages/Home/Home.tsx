@@ -14,8 +14,8 @@ function Home(){
         ['users',['usersData', 'userDetails']],
         ['posts',['postsData', 'postDetails']],
         ['messages',['moods','moodsData', 'moodDetails']],
-        ['support',[]],
-        ['notifications',[]],
+        // ['support',[]],
+        // ['notifications',[]],
         ['settings',['addNewMood']],
     ]
 

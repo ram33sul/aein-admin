@@ -38,8 +38,21 @@
     align-items: center;
     height: 100%;
     overflow-x: scroll;
+    font-size: 15px;
 }
 
 .th::-webkit-scrollbar, .tb::-webkit-scrollbar {
     display: none;
+}
+
+@media screen and (max-width: 1000px) {
+    .th, .tb {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .th, .tb {
+        font-size: 10px;
+    }
 }

@@ -1,6 +1,7 @@
+import { JsxElement } from 'typescript';
 import Loading from '../../general/Loading/Loading';
 import styles from './PageContent.module.css';
-import React,{ lazy, Suspense} from 'react';
+import React,{ lazy, ReactNode, Suspense} from 'react';
 
 interface ComponentsInterface {
     [key: string]: React.ComponentType<any>;
@@ -21,6 +22,8 @@ const Components: ComponentsInterface = {
     userDetails: lazy(() => import('../UserDetails/UserDetails')),
     postDetails: lazy(() => import('../PostDetails/PostDetails'))
 }
+
+
 
 function PageContent({page}: {page: string}) {
     const Component = Components[page];
